@@ -19,7 +19,10 @@ export default function ChatPanel({ onClose, prefill }: Props) {
     if (prefill) setInput(prefill)
   }, [prefill])
 
-  const lastUserMessage = useMemo(() => messages.filter(m => m.role === "user").at(-1)?.content, [messages])
+  const lastUserMessage = useMemo(() => {
+    const userMessages = messages.filter(m => m.role === "user")
+    return userMessages.length ? userMessages[userMessages.length - 1].content : undefined
+  }, [messages])
 
   const handleSend = async () => {
     if (!isValidMessage(input) || loading) return
