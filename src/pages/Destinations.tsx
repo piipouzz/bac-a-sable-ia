@@ -4,7 +4,8 @@ import DestinationCard from "../components/DestinationCard"
 import { destinations, destinationsPage } from "../data/destinations"
 
 export default function Destinations() {
-  const [filter, setFilter] = useState("Tous")
+  type Filter = (typeof destinationsPage.filters)[number]
+  const [filter, setFilter] = useState<Filter>("Tous")
 
   const filtered = useMemo(() => {
     if (filter === "Tous") return destinations

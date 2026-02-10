@@ -74,13 +74,13 @@ export const siteContent = {
     credits: "Crédits: assets placeholders",
     mentions: "Mentions: protocoles temporels fictifs"
   }
-}
+} as const
 
 export const destinationsPage = {
   title: "Destinations",
   subtitle: "Filtrez par thème pour affiner votre sélection.",
   filters: ["Tous", "Culture", "Aventure", "Art"]
-}
+} as const
 
 export const detailContent = {
   highlightsTitle: "À ne pas manquer",
@@ -91,7 +91,7 @@ export const detailContent = {
   chatLabel: "Ouvrir le chat",
   notFoundTitle: "Destination introuvable",
   notFoundText: "Cette destination n'existe pas ou a été retirée."
-}
+} as const
 
 export const quizContent = {
   title: "Quiz personnalisé",
@@ -100,7 +100,7 @@ export const quizContent = {
   premiumCta: "Générer une recommandation premium",
   chatCta: "Ouvrir le chat",
   preselectLabel: "Pré-sélection active"
-}
+} as const
 
 export const chatContent = {
   widgetOpen: "Chat",
@@ -112,7 +112,7 @@ export const chatContent = {
   send: "Envoyer",
   lastLabel: "Dernier message:",
   error: "Une contrainte technique empêche la réponse. Réessayez dans un instant."
-}
+} as const
 
 export const quizQuestions: QuizQuestion[] = [
   {

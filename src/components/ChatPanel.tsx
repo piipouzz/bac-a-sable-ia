@@ -11,7 +11,9 @@ type Props = {
 export default function ChatPanel({ onClose, prefill }: Props) {
   const [input, setInput] = useState("")
   const [loading, setLoading] = useState(false)
-  const [messages, setMessages] = useState<ChatMessage[]>([{ role: "assistant", content: chatContent.greeting }])
+  const [messages, setMessages] = useState<ChatMessage[]>([
+    { role: "assistant", content: chatContent.greeting }
+  ])
 
   useEffect(() => {
     if (prefill) setInput(prefill)
@@ -21,15 +23,18 @@ export default function ChatPanel({ onClose, prefill }: Props) {
 
   const handleSend = async () => {
     if (!isValidMessage(input) || loading) return
-    const next = [...messages, { role: "user", content: input.trim() }]
+    const userMessage: ChatMessage = { role: "user", content: input.trim() }
+    const next = [...messages, userMessage]
     setMessages(next)
     setInput("")
     setLoading(true)
     try {
       const reply = await sendChat(next, "chat")
-      setMessages([...next, { role: "assistant", content: reply }])
+      const assistantMessage: ChatMessage = { role: "assistant", content: reply }
+      setMessages([...next, assistantMessage])
     } catch {
-      setMessages([...next, { role: "assistant", content: chatContent.error }])
+      const assistantMessage: ChatMessage = { role: "assistant", content: chatContent.error }
+      setMessages([...next, assistantMessage])
     } finally {
       setLoading(false)
     }
