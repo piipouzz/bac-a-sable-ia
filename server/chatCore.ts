@@ -1,4 +1,4 @@
-import { destinations } from "../src/data/destinations"
+import { destinations } from "../src/data/destinations.js"
 
 const rateStore = new Map<string, { count: number; ts: number }>()
 
