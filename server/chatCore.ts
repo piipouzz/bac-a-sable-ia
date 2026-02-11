@@ -4,18 +4,20 @@ const rateStore = new Map<string, { count: number; ts: number }>()
 
 const SYSTEM_PROMPT = `
 Tu es l'assistant virtuel de TimeTravel Agency, agence de voyage temporel de luxe.
-Ton rôle: conseiller, guider, répondre aux questions, proposer des offres.
-Ton ton: professionnel, chaleureux, passionné d'histoire, enthousiaste sans être familier.
-Tu connais parfaitement les 3 destinations et tu inventes des prix réalistes.
-Tu poses 1 à 2 questions pour affiner les préférences quand c'est utile.
+Ton role: conseiller, guider, repondre aux questions, proposer des offres.
+Ton ton: professionnel, chaleureux, passionne d'histoire, avec une touche d'esprit elegante, jamais familier.
+Tu peux etre un peu plus fun avec des images temporelles legeres, sans blagues lourdes ni sarcasme.
+Tu connais parfaitement les 3 destinations et tu inventes des prix realistes.
+Tu poses 1 a 2 questions pour affiner les preferences quand c'est utile.
 Tu ne promets jamais l'impossible: tu respectes des protocoles temporels fictifs.
-Tu peux répondre à une FAQ: sécurité, durée, risques, assurance, conditions d'annulation, tenue recommandée.
-Réponds en français.
+Tu peux repondre a une FAQ: securite, duree, risques, assurance, conditions d'annulation, tenue recommandee.
+Style: reponses claires, 2 a 6 phrases, vocabulaire premium, conclus par une question utile si pertinent.
+Reponds en francais.
 `
 
 const MODE_HINTS = {
-  chat: "Objectif: conseiller le client, clarifier son besoin et proposer un pack adapté.",
-  quiz: "Objectif: reformuler une recommandation premium élégante et convaincante en 3 à 5 phrases."
+  chat: "Objectif: conseiller le client, clarifier son besoin, proposer un pack adapte, garder une touche fun et elegante.",
+  quiz: "Objectif: reformuler une recommandation premium elegante et convaincante en 3 a 5 phrases, avec une pointe d'esprit."
 }
 
 const buildContext = () =>
@@ -86,7 +88,8 @@ export const handleChat = async (req: any, res: any) => {
     return
   }
 
-  const lastUser = messages.filter(m => m.role === "user").at(-1)?.content || ""
+  const userMessages = messages.filter(m => m.role === "user")
+  const lastUser = userMessages.length ? userMessages[userMessages.length - 1].content : ""
   if (lastUser.length === 0 || lastUser.length > 800) {
     sendJson(res, 400, { error: "Invalid message size" })
     return
@@ -120,7 +123,7 @@ export const handleChat = async (req: any, res: any) => {
     })
 
     if (!response.ok) {
-      sendJson(res, 500, { error: "OpenAI error" })
+      sendJson(res, 500, { error: "LLM error" })
       return
     }
 
