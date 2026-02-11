@@ -95,7 +95,7 @@ export const detailContent = {
 
 export const quizContent = {
   title: "Quiz personnalisé",
-  subtitle: "Quatre questions pour affiner votre voyage idéal.",
+  subtitle: "Six questions pour affiner votre voyage idéal.",
   recommendationLabel: "Recommandation",
   premiumCta: "Générer une recommandation premium",
   chatCta: "Ouvrir le chat",
@@ -153,6 +153,16 @@ export const quizQuestions: QuizQuestion[] = [
     id: "budget",
     title: "Votre budget idéal ?",
     options: ["Standard", "Premium", "VIP"]
+  },
+  {
+    id: "ambiance",
+    title: "Quelle ambiance vous attire le plus ?",
+    options: ["Soirees glamour", "Nature brute", "Ateliers et chefs-d'oeuvre"]
+  },
+  {
+    id: "rythme",
+    title: "Quel rythme preferez-vous ?",
+    options: ["Rythme doux", "Expedition intense", "Flanerie artistique"]
   }
 ]
 

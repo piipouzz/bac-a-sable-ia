@@ -2,7 +2,8 @@
 import { useSearchParams } from "react-router-dom"
 import Section from "../components/Section"
 import QuizCard from "../components/QuizCard"
-import { destinations, quizContent, quizQuestions } from "../data/destinations"
+import ReservationForm from "../components/ReservationForm"
+import { destinations, quizContent, quizQuestions, reservationContent } from "../data/destinations"
 import { sendChat } from "../lib/apiClient"
 import { openChat } from "../lib/utils"
 
@@ -46,6 +47,14 @@ export default function Quiz() {
     if (answers.budget === "Premium") addScore("paris-1889", 1)
     if (answers.budget === "Standard") addScore("paris-1889", 1)
 
+    if (answers.ambiance === "Soirees glamour") addScore("paris-1889", 2)
+    if (answers.ambiance === "Nature brute") addScore("cretace", 2)
+    if (answers.ambiance === "Ateliers et chefs-d'oeuvre") addScore("florence-1504", 2)
+
+    if (answers.rythme === "Rythme doux") addScore("paris-1889", 1)
+    if (answers.rythme === "Expedition intense") addScore("cretace", 1)
+    if (answers.rythme === "Flanerie artistique") addScore("florence-1504", 1)
+
     const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1])
     return sorted[0]?.[0] || "paris-1889"
   }, [answers, preselect])
@@ -56,8 +65,9 @@ export default function Quiz() {
     if (!destination) return ""
     const focus = answers.focus || destination.tags[0]
     const intensity = answers.intensity || "Équilibré"
+    const ambiance = answers.ambiance || "Soirees glamour"
     const budget = answers.budget || "Premium"
-    return `Vos choix orientés ${focus.toLowerCase()} et un niveau ${intensity.toLowerCase()} suggèrent ${destination.title}. Le pack ${budget} s'accorde parfaitement avec l'ambiance ${destination.era.toLowerCase()} et vos attentes de confort.`
+    return `Vos choix orientes ${focus.toLowerCase()} et un niveau ${intensity.toLowerCase()} suggerent ${destination.title}. L'ambiance ${ambiance.toLowerCase()} et le pack ${budget} renforcent ce choix pour un voyage aussi fluide qu'inoubliable.`
   }, [answers, destination])
 
   const generatePremium = async () => {
@@ -99,18 +109,27 @@ export default function Quiz() {
       </div>
 
       {completed && destination && (
-        <div className="mt-10 glass rounded-2xl p-6">
-          <div className="text-smoke uppercase tracking-[0.2em] text-xs">{quizContent.recommendationLabel}</div>
-          <h3 className="font-display text-2xl text-gold mt-2">{destination.title}</h3>
-          <p className="text-smoke mt-3">{explanation}</p>
-          {aiText && <p className="text-platinum mt-4">{aiText}</p>}
-          <div className="mt-6 flex gap-4">
-            <button onClick={generatePremium} className="btn-gold" disabled={aiLoading} type="button">
-              {aiLoading ? "Génération..." : quizContent.premiumCta}
-            </button>
-            <button onClick={() => openChat()} className="btn-outline" type="button">
-              {quizContent.chatCta}
-            </button>
+        <div className="mt-10 space-y-8">
+          <div className="glass rounded-2xl p-6">
+            <div className="text-smoke uppercase tracking-[0.2em] text-xs">{quizContent.recommendationLabel}</div>
+            <h3 className="font-display text-2xl text-gold mt-2">{destination.title}</h3>
+            <p className="text-smoke mt-3">{explanation}</p>
+            {aiText && <p className="text-platinum mt-4">{aiText}</p>}
+            <div className="mt-6 flex gap-4">
+              <button onClick={generatePremium} className="btn-gold" disabled={aiLoading} type="button">
+                {aiLoading ? "Génération..." : quizContent.premiumCta}
+              </button>
+              <button onClick={() => openChat()} className="btn-outline" type="button">
+                {quizContent.chatCta}
+              </button>
+            </div>
+          </div>
+          <div>
+            <div className="text-smoke uppercase tracking-[0.2em] text-xs">{reservationContent.title}</div>
+            <h4 className="font-display text-xl text-gold mt-2">{reservationContent.subtitle}</h4>
+            <div className="mt-4">
+              <ReservationForm initialDestinationId={destination.id} />
+            </div>
           </div>
         </div>
       )}

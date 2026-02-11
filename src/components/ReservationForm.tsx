@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { destinations, reservationContent } from "../data/destinations"
 
 type Errors = {
@@ -7,12 +7,20 @@ type Errors = {
   endDate?: string
 }
 
-export default function ReservationForm() {
+type Props = {
+  initialDestinationId?: string
+}
+
+export default function ReservationForm({ initialDestinationId }: Props) {
   const today = new Date().toISOString().slice(0, 10)
-  const [destinationId, setDestinationId] = useState(destinations[0]?.id ?? "")
+  const [destinationId, setDestinationId] = useState(initialDestinationId || destinations[0]?.id || "")
   const [startDate, setStartDate] = useState("")
   const [endDate, setEndDate] = useState("")
   const [submitted, setSubmitted] = useState(false)
+
+  useEffect(() => {
+    if (initialDestinationId) setDestinationId(initialDestinationId)
+  }, [initialDestinationId])
 
   const errors = useMemo<Errors>(() => {
     const next: Errors = {}
