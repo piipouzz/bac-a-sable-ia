@@ -1,6 +1,5 @@
 ﻿# TimeTravel Agency
 
-https://bac-a-sable-jl2kfxxn9-piipouzzs-projects.vercel.app/
 MVP React moderne pour une agence fictive de voyages temporels de luxe. UI sombre premium, navigation fluide, chatbot IA intégré, quiz de recommandation et pages destinations complètes.
 
 ## Stack
