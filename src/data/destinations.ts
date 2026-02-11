@@ -114,6 +114,25 @@ export const chatContent = {
   error: "Une contrainte technique empêche la réponse. Réessayez dans un instant."
 } as const
 
+export const reservationContent = {
+  title: "Formulaire de reservation",
+  subtitle: "Selectionnez votre destination et vos dates ideales, puis validez la demande.",
+  labels: {
+    destination: "Destination",
+    startDate: "Date de depart",
+    endDate: "Date de retour"
+  },
+  cta: "Valider la demande",
+  success: "Demande envoyee. Notre equipe revient vers vous rapidement.",
+  errors: {
+    destination: "Choisissez une destination.",
+    startDate: "Indiquez une date de depart.",
+    endDate: "Indiquez une date de retour.",
+    dateOrder: "La date de retour doit etre apres la date de depart.",
+    startPast: "La date de depart ne peut pas etre dans le passe."
+  }
+} as const
+
 export const quizQuestions: QuizQuestion[] = [
   {
     id: "style",

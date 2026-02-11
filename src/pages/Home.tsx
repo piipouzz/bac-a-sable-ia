@@ -1,7 +1,8 @@
 import { useState } from "react"
 import Section from "../components/Section"
 import DestinationCard from "../components/DestinationCard"
-import { destinations, siteContent } from "../data/destinations"
+import ReservationForm from "../components/ReservationForm"
+import { destinations, reservationContent, siteContent } from "../data/destinations"
 import { motion } from "framer-motion"
 import { Link } from "react-router-dom"
 import { assets } from "../assets"
@@ -83,6 +84,10 @@ export default function Home() {
             <DestinationCard key={d.id} destination={d} />
           ))}
         </div>
+      </Section>
+
+      <Section id="reservation" title={reservationContent.title} subtitle={reservationContent.subtitle}>
+        <ReservationForm />
       </Section>
 
       <Section title={siteContent.homeChat.title} subtitle={siteContent.homeChat.subtitle}>
